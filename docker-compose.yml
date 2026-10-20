@@ -1,0 +1,21 @@
+services:
+  locate-anything-trainer:
+    build: .
+    image: harbor.qbscocloud.net:30003/verseye-project/locate-anything-annotator:latest
+    env_file:
+      - .env
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    volumes:
+      - ${INPUT_VOLUME:-./input}:/app/input:ro
+      - ${PREVIOUS_DATASET_VOLUME:-./previous_dataset}:/app/previous_dataset:ro
+      - ${DATASET_VOLUME:-./dataset}:/app/dataset
+      - ${WEIGHT_VOLUME:-./weight}:/app/weight
+      - ${HF_CACHE_VOLUME:-./hf_cache}:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

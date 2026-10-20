@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.pyc
+.idea/
+data/
+dataset/
+weight/
+input/
+previous_dataset/
+hf_cache/
+dataset_preview/
+*.pt
+
+.env
